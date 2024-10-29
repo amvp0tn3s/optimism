@@ -1,0 +1,21 @@
+volumes:
+  op_log:
+
+services:
+  l2:
+    build:
+      context: .
+      dockerfile: l2-op-geth.Dockerfile
+    ports:
+      - "9545:8545"
+      - "8060:6060"
+    volumes:
+      - "${PWD}/l2_data:/db"
+      - "${PWD}/genesis-l2.json:/genesis.json"
+      - "${PWD}/test-jwt-secret.txt:/config/jwt-secret.txt"
+    entrypoint: # pass the L2 specific flags by overriding the entry-point and adding extra arguments
+      - "/bin/sh"
+      - "/entrypoint.sh"
+    environment:
+      GETH_MINER_RECOMMIT: 100ms
+      GETH_VERBOSITY: 5
