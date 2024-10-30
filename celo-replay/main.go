@@ -52,6 +52,7 @@ func Main() cliapp.LifecycleAction {
 		if err != nil {
 			return nil, fmt.Errorf("can't parse config: %w", err)
 		}
+		log.Info("started with config", "config", cfg)
 		if err := cfg.Check(); err != nil {
 			return nil, fmt.Errorf("invalid CLI flags: %w", err)
 		}

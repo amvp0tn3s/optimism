@@ -9,6 +9,36 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 )
 
+func (co *ConsensusOrchestrator) forkChoice(ctx context.Context, errChan chan<- error, block common.Hash) {
+	var err error
+	defer func() {
+		errChan <- err
+		close(errChan)
+	}()
+
+	payload, err := co.liveClient.PayloadByHash(ctx, block)
+	if err != nil {
+		err = fmt.Errorf("couldn't get replayed block payload: %w", err)
+		return
+	}
+	co.logger.Info("got payload for block", "block", block, "payload", payload)
+
+	fc := &eth.ForkchoiceState{
+		HeadBlockHash: payload.ExecutionPayload.ParentHash,
+		// TODO: do we need this properly set?
+		// how does geth use this during block building?
+		SafeBlockHash:      common.Hash{},
+		FinalizedBlockHash: common.Hash{},
+	}
+
+	results, err := co.client.EngineAPIClient.ForkchoiceUpdate(ctx, fc, nil)
+	if err != nil {
+		err = fmt.Errorf("failed to update forkchoice: %w", err)
+		return
+	}
+	co.logger.Info("forkchoice update result", "result", results)
+}
+
 func (co *ConsensusOrchestrator) replay(ctx context.Context, errChan chan<- error, block common.Hash) {
 	var err error
 	defer func() {

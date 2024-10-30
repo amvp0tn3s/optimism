@@ -22,6 +22,12 @@ var (
 		Usage:   "Hash of the block to be replayed",
 		EnvVars: prefixEnvVars("BLOCK"),
 	}
+	L2SyncAddr = &cli.StringFlag{
+		Name:     "l2-sync",
+		Usage:    "Address of the trusted L2 Engine JSON-RPC endpoints to use to retrieve payload information from",
+		EnvVars:  prefixEnvVars("L2_SYNC_RPC"),
+		Category: flags.RollupCategory,
+	}
 )
 
 func prefixEnvVars(name string) []string {
@@ -31,6 +37,8 @@ func prefixEnvVars(name string) []string {
 var requiredFlags = []cli.Flag{
 	flags.L2EngineAddr,
 	flags.L2EngineJWTSecret,
+	L2SyncAddr,
+
 	// TODO: I'd rather have this as an argument
 	ReplayBlock,
 }
@@ -67,13 +75,20 @@ func ParseConfig(cliCtx *cli.Context) (*Config, log.Logger, error) {
 	if err != nil {
 		return nil, logger, fmt.Errorf("failed to build rollup config: %w", err)
 	}
+	// HACK: overwrite this so that it forces an EngineAPI V2...
+	rollupCfg.GraniteTime = nil
+	rollupCfg.FjordTime = nil
+	rollupCfg.EcotoneTime = nil
 	l2Cfg, err := opnode.NewL2EndpointConfig(cliCtx, logger)
 	if err != nil {
 		return nil, logger, fmt.Errorf("failed to load l2 endpoints info: %w", err)
 	}
+
+	l2LiveAddr := cliCtx.String(L2SyncAddr.Name)
 	block := common.HexToHash(cliCtx.String(ReplayBlock.Name))
 	return &Config{
-		L2:              l2Cfg,
+		L2Local:         l2Cfg,
+		L2Live:          l2LiveAddr,
 		Rollup:          *rollupCfg,
 		LogConfig:       logCfg,
 		ReplayBlockHash: block,
