@@ -67,6 +67,9 @@ jobs:
       contains(needs.detect-files-changed.outputs.files-changed, 'ops/docker') ||
       contains(needs.detect-files-changed.outputs.files-changed, 'op-node/') ||
       contains(needs.detect-files-changed.outputs.files-changed, 'op-batcher/') ||
+      contains(needs.detect-files-changed.outputs.files-changed, 'op-conductor/') ||
+      contains(needs.detect-files-changed.outputs.files-changed, 'op-challenger/') ||
+      contains(needs.detect-files-changed.outputs.files-changed, 'op-dispute-mon/') ||
       contains(needs.detect-files-changed.outputs.files-changed, 'op-proposer/') ||
       contains(needs.detect-files-changed.outputs.files-changed, 'op-service/') ||
       contains(needs.detect-files-changed.outputs.files-changed, '.github/workflows/docker-build-scan.yaml') ||
@@ -99,4 +102,4 @@ jobs:
           push: true
           source: .
           files: docker-bake.hcl
-          targets: op-node,op-batcher,op-proposer,op-conductor
+          targets: op-node,op-batcher,op-proposer,op-conductor,op-challenger,op-dispute-mon
