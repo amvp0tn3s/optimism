@@ -80,6 +80,40 @@ var (
 			// CreateX
 			common.HexToAddress("0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed"): false,
 		},
+		BaklavaNetworkID: {
+			// Create2Deployer
+			// OP uses a version without an owner who can pause the contract,
+			// so we overwrite the existing contract during migration
+			common.HexToAddress("0x13b0D85CcB8bf860b6b79AF3029fCA081AE9beF2"): true,
+
+			// Same code as in allocs file
+			// EntryPoint_v070
+			common.HexToAddress("0x0000000071727De22E5E9d8BAf0edAc6f37da032"): false,
+			// Permit2
+			common.HexToAddress("0x000000000022D473030F116dDEE9F6B43aC78BA3"): false,
+			// EntryPoint_v060
+			common.HexToAddress("0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"): false,
+			// DeterministicDeploymentProxy
+			common.HexToAddress("0x4e59b44847b379578588920cA78FbF26c0B4956C"): false,
+			// SafeL2_v130
+			common.HexToAddress("0xfb1bffC9d739B8D520DaF37dF666da4C687191EA"): false,
+			// MultiSend_v130
+			common.HexToAddress("0x998739BFdAAdde7C933B942a68053933098f9EDa"): false,
+			// SenderCreator_v070
+			common.HexToAddress("0xEFC2c1444eBCC4Db75e7613d20C6a62fF67A167C"): false,
+			// SenderCreator_v060
+			common.HexToAddress("0x7fc98430eAEdbb6070B35B39D798725049088348"): false,
+			// MultiCall3
+			common.HexToAddress("0xcA11bde05977b3631167028862bE2a173976CA11"): false,
+			// Safe_v130
+			common.HexToAddress("0x69f4D1788e39c87893C980c06EdF4b7f686e2938"): false,
+			// MultiSendCallOnly_v130
+			common.HexToAddress("0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B"): false,
+			// SafeSingletonFactory
+			common.HexToAddress("0x914d7Fec6aaC8cd542e72Bca78B30650d45643d7"): false,
+			// CreateX
+			common.HexToAddress("0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed"): false,
+		},
 	}
 	unreleasedTreasuryAddressMap = map[uint64]common.Address{
 		AlfajoresNetworkID: common.HexToAddress("0x07bf0b2461A0cb608D5CF9a82ba97dAbA850F79F"),
