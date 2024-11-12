@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 us-west1-docker.pkg.dev/blockchaintestsglobaltestnet/dev-images/op-geth@sha256:fab76a990c21271419a40dfe5d28e30905869183b18ee9e6f711fe562365bc8e
+FROM --platform=linux/amd64 us-west1-docker.pkg.dev/blockchaintestsglobaltestnet/dev-images/op-geth@sha256:93694cd5e2e94ac6c1b60539e185eeb6584c3400e43c239c47bd26be06dd656a
 
 RUN apk add --no-cache jq
 
