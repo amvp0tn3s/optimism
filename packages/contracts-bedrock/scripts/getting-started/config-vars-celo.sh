@@ -110,6 +110,8 @@ cat << EOL > tmp_config.json
   "eip1559DenominatorCanyon": 400,
   "eip1559Elasticity": 5,
   "eip1559BaseFeeFloor": 5000000000,
+  "gasPriceOracleBaseFeeScalar": 0,
+  "gasPriceOracleBlobBaseFeeScalar": 0,
 EOL
 
 # Append conditional environment variables with their corresponding default values

@@ -405,8 +405,8 @@ contract Deploy is Deployer {
         deployImplementations();
         initializeImplementations();
 
-        setAlphabetFaultGameImplementation({ _allowUpgrade: false });
-        setFastFaultGameImplementation({ _allowUpgrade: false });
+        // setAlphabetFaultGameImplementation({ _allowUpgrade: false });
+        // setFastFaultGameImplementation({ _allowUpgrade: false });
         setCannonFaultGameImplementation({ _allowUpgrade: false });
         setPermissionedCannonFaultGameImplementation({ _allowUpgrade: false });
 
@@ -1055,7 +1055,8 @@ contract Deploy is Deployer {
         address anchorStateRegistry = mustGetAddress("AnchorStateRegistry");
         ISuperchainConfig superchainConfig = ISuperchainConfig(mustGetAddress("SuperchainConfigProxy"));
 
-        IAnchorStateRegistry.StartingAnchorRoot[] memory roots = new IAnchorStateRegistry.StartingAnchorRoot[](5);
+        // IAnchorStateRegistry.StartingAnchorRoot[] memory roots = new IAnchorStateRegistry.StartingAnchorRoot[](5);
+        IAnchorStateRegistry.StartingAnchorRoot[] memory roots = new IAnchorStateRegistry.StartingAnchorRoot[](2);
         roots[0] = IAnchorStateRegistry.StartingAnchorRoot({
             gameType: GameTypes.CANNON,
             outputRoot: OutputRoot({
@@ -1070,27 +1071,27 @@ contract Deploy is Deployer {
                 l2BlockNumber: cfg.faultGameGenesisBlock()
             })
         });
-        roots[2] = IAnchorStateRegistry.StartingAnchorRoot({
-            gameType: GameTypes.ALPHABET,
-            outputRoot: OutputRoot({
-                root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
-                l2BlockNumber: cfg.faultGameGenesisBlock()
-            })
-        });
-        roots[3] = IAnchorStateRegistry.StartingAnchorRoot({
-            gameType: GameTypes.ASTERISC,
-            outputRoot: OutputRoot({
-                root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
-                l2BlockNumber: cfg.faultGameGenesisBlock()
-            })
-        });
-        roots[4] = IAnchorStateRegistry.StartingAnchorRoot({
-            gameType: GameTypes.FAST,
-            outputRoot: OutputRoot({
-                root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
-                l2BlockNumber: cfg.faultGameGenesisBlock()
-            })
-        });
+        // roots[2] = IAnchorStateRegistry.StartingAnchorRoot({
+        //     gameType: GameTypes.ALPHABET,
+        //     outputRoot: OutputRoot({
+        //         root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
+        //         l2BlockNumber: cfg.faultGameGenesisBlock()
+        //     })
+        // });
+        // roots[3] = IAnchorStateRegistry.StartingAnchorRoot({
+        //     gameType: GameTypes.ASTERISC,
+        //     outputRoot: OutputRoot({
+        //         root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
+        //         l2BlockNumber: cfg.faultGameGenesisBlock()
+        //     })
+        // });
+        // roots[4] = IAnchorStateRegistry.StartingAnchorRoot({
+        //     gameType: GameTypes.FAST,
+        //     outputRoot: OutputRoot({
+        //         root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
+        //         l2BlockNumber: cfg.faultGameGenesisBlock()
+        //     })
+        // });
 
         _upgradeAndCallViaSafe({
             _proxy: payable(anchorStateRegistryProxy),
@@ -1104,46 +1105,46 @@ contract Deploy is Deployer {
 
     function initializeAnchorStateRegistryStatic() public broadcast {
         console.log("Initializing AnchorStateRegistry proxy");
-        address anchorStateRegistryProxyStatic = 0x2C352Db04D4ab5100e32a4EF9905F46F07d884a5;
-        address anchorStateRegistryStatic = 0x09c0526F6D9d80920Da46Fee92e6aA0679fbAC31;
-        ISuperchainConfig superchainConfigStatic = ISuperchainConfig(payable(0x9B776D9d1b8f0Dc25b80D83b11B91fb97eBb20f8));
+        address anchorStateRegistryProxyStatic = 0xcE2C40926a97F5031EEe6aFDF24919FA0ef8e825;
+        address anchorStateRegistryStatic = 0xa965acb7225dEAaA009B1cF527E13190061E8800;
+        ISuperchainConfig superchainConfigStatic = ISuperchainConfig(payable(0x17848E77fbcC99AD431Bf2cCeA3198B31dd53f2A));
 
         IAnchorStateRegistry.StartingAnchorRoot[] memory roots = new IAnchorStateRegistry.StartingAnchorRoot[](5);
         roots[0] = IAnchorStateRegistry.StartingAnchorRoot({
-            gameType: GameTypes.CANNON,
-            outputRoot: OutputRoot({
-                root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
-                l2BlockNumber: cfg.faultGameGenesisBlock()
-            })
-        });
-        roots[1] = IAnchorStateRegistry.StartingAnchorRoot({
             gameType: GameTypes.PERMISSIONED_CANNON,
             outputRoot: OutputRoot({
                 root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
                 l2BlockNumber: cfg.faultGameGenesisBlock()
             })
         });
-        roots[2] = IAnchorStateRegistry.StartingAnchorRoot({
-            gameType: GameTypes.ALPHABET,
+        roots[1] = IAnchorStateRegistry.StartingAnchorRoot({
+            gameType: GameTypes.CANNON,
             outputRoot: OutputRoot({
                 root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
                 l2BlockNumber: cfg.faultGameGenesisBlock()
             })
         });
-        roots[3] = IAnchorStateRegistry.StartingAnchorRoot({
-            gameType: GameTypes.ASTERISC,
-            outputRoot: OutputRoot({
-                root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
-                l2BlockNumber: cfg.faultGameGenesisBlock()
-            })
-        });
-        roots[4] = IAnchorStateRegistry.StartingAnchorRoot({
-            gameType: GameTypes.FAST,
-            outputRoot: OutputRoot({
-                root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
-                l2BlockNumber: cfg.faultGameGenesisBlock()
-            })
-        });
+        // roots[2] = IAnchorStateRegistry.StartingAnchorRoot({
+        //     gameType: GameTypes.ALPHABET,
+        //     outputRoot: OutputRoot({
+        //         root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
+        //         l2BlockNumber: cfg.faultGameGenesisBlock()
+        //     })
+        // });
+        // roots[3] = IAnchorStateRegistry.StartingAnchorRoot({
+        //     gameType: GameTypes.ASTERISC,
+        //     outputRoot: OutputRoot({
+        //         root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
+        //         l2BlockNumber: cfg.faultGameGenesisBlock()
+        //     })
+        // });
+        // roots[4] = IAnchorStateRegistry.StartingAnchorRoot({
+        //     gameType: GameTypes.FAST,
+        //     outputRoot: OutputRoot({
+        //         root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
+        //         l2BlockNumber: cfg.faultGameGenesisBlock()
+        //     })
+        // });
 
         _upgradeAndCallViaSafeStatic({
             _proxy: payable(anchorStateRegistryProxyStatic),
@@ -1156,12 +1157,12 @@ contract Deploy is Deployer {
     }
 
     function _upgradeAndCallViaSafeStatic(address _proxy, address _implementation, bytes memory _innerCallData) internal {
-        address proxyAdminStatic = 0x1d461e362937906BD2F276ee74d9DB73b1E16c0d;
+        address proxyAdminStatic = 0x6013Bda6265E7050F83745B4AA95Fe49a7979c28;
 
         bytes memory data =
             abi.encodeCall(ProxyAdmin.upgradeAndCall, (payable(_proxy), _implementation, _innerCallData));
 
-        Safe safe = Safe(payable(0x8C8d46BcF286aCEfC42B888b76A21279fe637BA6));
+        Safe safe = Safe(payable(0xDBCeBd19E85EE15d24a800F8A5705c6C897F4242));
         _callViaSafe({ _safe: safe, _target: proxyAdminStatic, _data: data });
     }
 
