@@ -666,6 +666,9 @@ type FaultProofDeployConfig struct {
 	// UseFaultProofs is a flag that indicates if the system is using fault
 	// proofs instead of the older output oracle mechanism.
 	UseFaultProofs bool `json:"useFaultProofs"`
+	// InitializeAnchorStateRegistry is a flag that indicates if the system should
+	// initialize the AnchorStateRegistry when running Deploy.s.sol run() function.
+	InitializeAnchorStateRegistry bool `json:"initializeAnchorStateRegistry"`
 	// FaultGameAbsolutePrestate is the absolute prestate of Cannon. This is computed
 	// by generating a proof from the 0th -> 1st instruction and grabbing the prestate from
 	// the output JSON. All honest challengers should agree on the setup state of the program.
@@ -830,6 +833,9 @@ type DeployConfig struct {
 
 	// DeployCeloContracts indicates whether to deploy Celo contracts.
 	DeployCeloContracts bool `json:"deployCeloContracts"`
+
+	// InitializeAnchorStateRegistry indicates whether to initialize the AnchorStateRegistry.
+	InitializeAnchorStateRegistry bool `json:"initializeAnchorStateRegistry"`
 }
 
 // Copy will deeply copy the DeployConfig. This does a JSON roundtrip to copy

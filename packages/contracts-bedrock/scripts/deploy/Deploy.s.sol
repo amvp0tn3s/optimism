@@ -1100,6 +1100,69 @@ contract Deploy is Deployer {
         console.log("AnchorStateRegistry version: %s", version);
     }
 
+    function initializeAnchorStateRegistryStatic() public broadcast {
+        console.log("Initializing AnchorStateRegistry proxy");
+        address anchorStateRegistryProxyStatic = 0x2C352Db04D4ab5100e32a4EF9905F46F07d884a5;
+        address anchorStateRegistryStatic = 0x09c0526F6D9d80920Da46Fee92e6aA0679fbAC31;
+        ISuperchainConfig superchainConfigStatic = ISuperchainConfig(payable(0x9B776D9d1b8f0Dc25b80D83b11B91fb97eBb20f8));
+
+        IAnchorStateRegistry.StartingAnchorRoot[] memory roots = new IAnchorStateRegistry.StartingAnchorRoot[](5);
+        roots[0] = IAnchorStateRegistry.StartingAnchorRoot({
+            gameType: GameTypes.CANNON,
+            outputRoot: OutputRoot({
+                root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
+                l2BlockNumber: cfg.faultGameGenesisBlock()
+            })
+        });
+        roots[1] = IAnchorStateRegistry.StartingAnchorRoot({
+            gameType: GameTypes.PERMISSIONED_CANNON,
+            outputRoot: OutputRoot({
+                root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
+                l2BlockNumber: cfg.faultGameGenesisBlock()
+            })
+        });
+        roots[2] = IAnchorStateRegistry.StartingAnchorRoot({
+            gameType: GameTypes.ALPHABET,
+            outputRoot: OutputRoot({
+                root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
+                l2BlockNumber: cfg.faultGameGenesisBlock()
+            })
+        });
+        roots[3] = IAnchorStateRegistry.StartingAnchorRoot({
+            gameType: GameTypes.ASTERISC,
+            outputRoot: OutputRoot({
+                root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
+                l2BlockNumber: cfg.faultGameGenesisBlock()
+            })
+        });
+        roots[4] = IAnchorStateRegistry.StartingAnchorRoot({
+            gameType: GameTypes.FAST,
+            outputRoot: OutputRoot({
+                root: Hash.wrap(cfg.faultGameGenesisOutputRoot()),
+                l2BlockNumber: cfg.faultGameGenesisBlock()
+            })
+        });
+
+        _upgradeAndCallViaSafeStatic({
+            _proxy: payable(anchorStateRegistryProxyStatic),
+            _implementation: anchorStateRegistryStatic,
+            _innerCallData: abi.encodeCall(IAnchorStateRegistry.initialize, (roots, superchainConfigStatic))
+        });
+
+        string memory version = IAnchorStateRegistry(payable(anchorStateRegistryProxyStatic)).version();
+        console.log("AnchorStateRegistry version: %s", version);
+    }
+
+    function _upgradeAndCallViaSafeStatic(address _proxy, address _implementation, bytes memory _innerCallData) internal {
+        address proxyAdminStatic = 0x1d461e362937906BD2F276ee74d9DB73b1E16c0d;
+
+        bytes memory data =
+            abi.encodeCall(ProxyAdmin.upgradeAndCall, (payable(_proxy), _implementation, _innerCallData));
+
+        Safe safe = Safe(payable(0x8C8d46BcF286aCEfC42B888b76A21279fe637BA6));
+        _callViaSafe({ _safe: safe, _target: proxyAdminStatic, _data: data });
+    }
+
     /// @notice Initialize the SystemConfig
     function initializeSystemConfig() public broadcast {
         console.log("Upgrading and initializing SystemConfig proxy");
