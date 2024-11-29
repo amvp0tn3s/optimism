@@ -19,7 +19,7 @@ contract SafeCall_Test is Test {
         // ignore address of library contract whose functions have 'public' or 'external' visibilities
         vm.assume(_addr != address(AddressSortedLinkedList));
         vm.assume(_addr != address(AddressSortedLinkedListWithMedian));
-            // precompiles: https://github.com/foundry-rs/forge-std/pull/594
+        // precompiles: https://github.com/foundry-rs/forge-std/pull/594
         assumeAddressIsNot(_addr, StdCheatsSafe.AddressType.ForgeAddress, StdCheatsSafe.AddressType.Precompile);
     }
 
