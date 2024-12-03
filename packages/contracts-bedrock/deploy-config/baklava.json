@@ -13,7 +13,7 @@
   "l2OutputOracleSubmissionInterval": 600,
   "l2OutputOracleStartingBlockNumber": 26831470,
   "l2OutputOracleProposer": "0x2786D8ADFF8690FBC2dd28A53Fab3Bafa5AE6233",
-  "l2OutputOracleChallenger": "0xc07C5A1fBF6c7BC6b4f321E7dd031c0E1E98d32d",
+  "l2OutputOracleChallenger": "0x9e56D6CE53b5fD29528D18bb0002De417977344c",
   "finalizationPeriodSeconds": 12,
   "proxyAdminOwner": "0xc07C5A1fBF6c7BC6b4f321E7dd031c0E1E98d32d",
   "baseFeeVaultRecipient": "0xc07C5A1fBF6c7BC6b4f321E7dd031c0E1E98d32d",
