@@ -236,7 +236,7 @@ func applyStateMigrationChanges(config *genesis.DeployConfig, l2Allocs types.Gen
 		// Use the L1 start block's ParentBeaconRoot
 		ParentBeaconRoot: l1StartBlock.Header().ParentBeaconRoot,
 	}
-	log.Info("Build Cel2 migration header", "header", cel2Header)
+	log.Info("Build CeL2 migration header", "header", cel2Header)
 
 	// We need to set empty withdrawals in the body, otherwise types.NewBlock will nullify the withdrawals hash in the given header.
 	b := &types.Body{
@@ -248,7 +248,7 @@ func applyStateMigrationChanges(config *genesis.DeployConfig, l2Allocs types.Gen
 
 	// We did it!
 	log.Info(
-		"Built Cel2 migration block",
+		"Built CeL2 migration block",
 		"hash", cel2Block.Hash(),
 		"root", cel2Block.Root(),
 		"number", cel2Block.NumberU64(),
@@ -328,7 +328,7 @@ func applyAllocsToState(db vm.StateDB, allocs types.GenesisAlloc, allowlist map[
 				return fmt.Errorf("account exists and is not allowed, account: %s, nonce: %d, code: %d", k.Hex(), db.GetNonce(k), db.GetCode(k))
 			}
 
-			// This means that the account just has balance, in that case we wan to copy over the account
+			// This means that the account just has balance, in that case we want to copy over the account
 			if db.GetCodeSize(k) == 0 && db.GetNonce(k) == 0 {
 				writeCode = true
 				writeNonceAndStorage = true
