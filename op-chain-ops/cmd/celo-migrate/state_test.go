@@ -126,7 +126,7 @@ func TestApplyAllocsToState(t *testing.T) {
 			}
 
 			if !sdb.Exist(address) {
-				t.Errorf("account does not exists as expected: %v", address.Hex())
+				t.Errorf("account does not exist as expected: %v", address.Hex())
 			}
 
 			assert.Equal(t, tt.newAccount.Code, sdb.GetCode(address))
